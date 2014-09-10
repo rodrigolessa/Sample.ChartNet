@@ -5,31 +5,64 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.ModelConfiguration;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using Sample.ChartNet.Dominio;
 using Sample.ChartNet.Dominio.Entities;
 using Sample.ChartNet.Infraestrutura.Persistencia.UnitOfWork.Mapping;
 
 namespace Sample.ChartNet.Infraestrutura.Persistencia.UnitOfWork
 {
-    public partial class MainUnitOfWork : DbContext, IQueryableUnitOfWork
+    public class MainUnitOfWork : DbContext, IQueryableUnitOfWork
     {
-        static MainUnitOfWork()
+        #region IDbSet Members
+
+        IDbSet<Usuario> _usuarios;
+        public IDbSet<Usuario> Usuarios
         {
-            Database.SetInitializer<MainUnitOfWork>(null);
+            get
+            {
+                if (_usuarios == null)
+                    _usuarios = base.Set<Usuario>();
+
+                return _usuarios;
+            }
         }
 
-        public MainUnitOfWork()
-            : base("Name=kadastroContext")
+        IDbSet<Ponto> _pontos;
+        public IDbSet<Ponto> Pontos
         {
+            get
+            {
+                if (_pontos == null)
+                    _pontos = base.Set<Ponto>();
+
+                return _pontos;
+            }
         }
 
-        public DbSet<TitularAno> TitularAnoes { get; set; }
-
-        #region DbContext Overrides
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        IDbSet<Intervalo> _intervalos;
+        public IDbSet<Intervalo> Intervalos
         {
-            modelBuilder.Configurations.Add(new TitularAnoMap());
+            get
+            {
+                if (_intervalos == null)
+                    _intervalos = base.Set<Intervalo>();
+
+                return _intervalos;
+            }
+        }
+
+        IDbSet<Tarefa> _tarefas;
+        public IDbSet<Tarefa> Tarefas
+        {
+            get
+            {
+                if (_tarefas == null)
+                    _tarefas = base.Set<Tarefa>();
+
+                return _tarefas;
+            }
         }
 
         #endregion
@@ -38,47 +71,87 @@ namespace Sample.ChartNet.Infraestrutura.Persistencia.UnitOfWork
 
         public IDbSet<TEntity> CreateSet<TEntity>() where TEntity : class
         {
-            throw new NotImplementedException();
+            return base.Set<TEntity>();
         }
 
         public void Attach<TEntity>(TEntity item) where TEntity : class
         {
-            throw new NotImplementedException();
+            base.Entry<TEntity>(item).State = System.Data.Entity.EntityState.Unchanged;
         }
 
         public void SetModified<TEntity>(TEntity item) where TEntity : class
         {
-            throw new NotImplementedException();
+            base.Entry<TEntity>(item).State = System.Data.Entity.EntityState.Modified;
         }
 
         public void ApplyCurrentValues<TEntity>(TEntity original, TEntity current) where TEntity : class
         {
-            throw new NotImplementedException();
+            base.Entry<TEntity>(original).CurrentValues.SetValues(current);
         }
 
         public int Commit()
         {
-            throw new NotImplementedException();
+            return base.SaveChanges();
         }
 
         public void CommitAndRefreshChanges()
         {
-            throw new NotImplementedException();
+            bool saveFailed = false;
+
+            do
+            {
+                try
+                {
+                    base.SaveChanges();
+
+                    saveFailed = false;
+
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    saveFailed = true;
+
+                    ex.Entries.ToList()
+                              .ForEach(entry =>
+                              {
+                                  entry.OriginalValues.SetValues(entry.GetDatabaseValues());
+                              });
+
+                }
+            } while (saveFailed);
         }
 
         public void RollbackChanges()
         {
-            throw new NotImplementedException();
+            base.ChangeTracker.Entries()
+                              .ToList()
+                              .ForEach(entry => entry.State = System.Data.Entity.EntityState.Unchanged);
         }
 
         public IEnumerable<TEntity> ExecuteQuery<TEntity>(string sqlQuery, params object[] parameters)
         {
-            throw new NotImplementedException();
+            return base.Database.SqlQuery<TEntity>(sqlQuery, parameters);
         }
 
         public int ExecuteCommand(string sqlCommand, params object[] parameters)
         {
-            throw new NotImplementedException();
+            return base.Database.ExecuteSqlCommand(sqlCommand, parameters);
+        }
+
+        #endregion
+
+        #region DbContext Overrides
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            //Remove unused conventions
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+
+            //Add entity configurations in a structured way using 'TypeConfiguration’ classes
+            modelBuilder.Configurations.Add(new UsuarioTypeConfiguration());
+            modelBuilder.Configurations.Add(new PontoTypeConfiguration());
+            modelBuilder.Configurations.Add(new IntervaloTypeConfiguration());
+            modelBuilder.Configurations.Add(new TarefaTypeConfiguration());
         }
 
         #endregion

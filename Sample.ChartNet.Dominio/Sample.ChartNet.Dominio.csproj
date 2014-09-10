@@ -47,26 +47,59 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\EntityBase.cs" />
+    <Compile Include="Entities\Enum\PerfilAcesso.cs" />
+    <Compile Include="Entities\Enum\StatusUsuario.cs" />
+    <Compile Include="Entities\Intervalo.cs" />
+    <Compile Include="Entities\Ponto.cs" />
+    <Compile Include="Entities\Tarefa.cs" />
+    <Compile Include="Entities\Tarefa.Partial.cs" />
     <Compile Include="Entities\TitularAno.cs" />
+    <Compile Include="Entities\Usuario.cs" />
+    <Compile Include="Entities\Usuario.Partial.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Extensions\ValidatorExtensions.cs" />
     <Compile Include="IQueryableUnitOfWork.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="ISql.cs" />
     <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="Messages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Messages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Model\ItemListaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IIntervaloRepository.cs" />
+    <Compile Include="Repositories\IPontoRepository.cs" />
+    <Compile Include="Repositories\ITarefaRepository.cs" />
     <Compile Include="Repositories\ITitularAnoRepository.cs" />
+    <Compile Include="Repositories\IUsuarioRepository.cs" />
     <Compile Include="Repository.cs" />
+    <Compile Include="Services\ITarefaService.cs" />
     <Compile Include="Services\ITitularAnoService.cs" />
+    <Compile Include="Services\IUsuarioService.cs" />
+    <Compile Include="Services\TarefaService.cs" />
     <Compile Include="Services\TitularAnoService.cs" />
+    <Compile Include="Services\UsuarioService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Entities\Enum\" />
-    <Folder Include="Extensions\" />
     <Folder Include="Specifications\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sample.ChartNet.Infraestrutura.Comuns\Sample.ChartNet.Infraestrutura.Comuns.csproj">
+      <Project>{18910d6b-c950-4e70-b46d-b25ea49b7678}</Project>
+      <Name>Sample.ChartNet.Infraestrutura.Comuns</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Messages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
