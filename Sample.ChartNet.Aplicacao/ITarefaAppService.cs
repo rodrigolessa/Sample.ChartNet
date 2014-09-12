@@ -10,6 +10,7 @@ namespace Sample.ChartNet.Aplicacao
 {
     public interface ITarefaAppService
     {
+        List<TarefaDTO> Obter();
         List<TarefaDTO> Obter(string login);
         BusinessResponse<Boolean> Salvar(TarefaDTO item);
         BusinessResponse<Boolean> Excluir(Int32 id);

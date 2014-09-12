@@ -39,7 +39,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Initializers\AssemblyTestsInitialize.cs" />
+    <Compile Include="Initializers\MainUnitOfWorkInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\PontoRepositoryTeste.cs" />
+    <Compile Include="Repositories\TarefaRepositoryTeste.cs" />
+    <Compile Include="Repositories\UsuarioRepositoryTeste.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="App.Debug.config" />
+    <None Include="App.Release.config" />
+    <None Include="App.Work.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

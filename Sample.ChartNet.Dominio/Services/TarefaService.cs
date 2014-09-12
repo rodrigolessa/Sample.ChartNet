@@ -31,6 +31,11 @@ namespace Sample.ChartNet.Dominio.Services
 
         #region IUsuarioService membros
 
+        public List<Tarefa> Obter()
+        {
+            return _tarefaRepository.GetAll().ToList();
+        }
+
         public List<Tarefa> Obter(string login)
         {
             return _tarefaRepository.GetFiltered(x => x.Usuario.Login == login).ToList();

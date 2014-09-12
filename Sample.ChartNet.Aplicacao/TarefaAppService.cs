@@ -34,6 +34,11 @@ namespace Sample.ChartNet.Aplicacao
 
         #region IUsuarioAppService membros
 
+        public List<TarefaDTO> Obter()
+        {
+            return _tarefaService.Obter().ToTarefaDTO();
+        }
+
         public List<TarefaDTO> Obter(string login)
         {
             return _tarefaService.Obter(login).ToTarefaDTO();
@@ -54,6 +59,6 @@ namespace Sample.ChartNet.Aplicacao
             return _tarefaService.Executar(id);
         }
 
-#endregion
+        #endregion
     }
 }

@@ -1,0 +1,50 @@
+﻿@model Sample.ChartNet.UI.Web.ViewModel.HomeViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts
+{
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+
+        // Inicia a API de gráficos do Google
+        google.load('visualization', '1.0', { 'packages': ['corechart'] });
+
+        jQuery(document).ready(function () {
+            ko.applyBindings(new HomeIndexViewModel());
+        });
+
+    </script>
+}
+
+<h2>Ranking dos Usuários por quantidade de tarefas</h2>
+
+<div class="container-fluid content-main">
+
+    <div class="row">
+
+        <div class="col-sm-6">
+        </div>
+
+        <div class="col-sm-6">
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-6">
+            <div id="grafico1"></div>
+        </div>
+
+        <div class="col-sm-6">
+            <div id="grafico2"></div>
+        </div>
+
+    </div>
+
+</div>

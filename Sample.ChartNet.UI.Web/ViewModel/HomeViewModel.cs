@@ -13,7 +13,7 @@ namespace Sample.ChartNet.UI.Web.ViewModel
         {
         }
 
-        public string NomeUsuario { get; set; }
-        public List<Ponto> Pontos { get; set; }
+        public Usuario UsuarioLogado { get; set; }
+        public List<Tarefa> Tarefas { get; set; }
     }
 }

@@ -11,6 +11,7 @@ namespace Sample.ChartNet.Dominio.Services
 {
     public interface ITarefaService
     {
+        List<Tarefa> Obter();
         List<Tarefa> Obter(string login);
         BusinessResponse<Boolean> Salvar(Tarefa item);
         BusinessResponse<Boolean> Excluir(Int32 id);
