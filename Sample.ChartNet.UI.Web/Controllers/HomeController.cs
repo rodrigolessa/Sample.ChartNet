@@ -8,6 +8,7 @@ using Sample.ChartNet.Infraestrutura.Persistencia.Repositories;
 using Sample.ChartNet.Infraestrutura.Persistencia.UnitOfWork;
 using Sample.ChartNet.Dominio.Services;
 using Sample.ChartNet.Aplicacao;
+using Sample.ChartNet.Aplicacao.DTO;
 
 namespace Sample.ChartNet.UI.Web.Controllers
 {
@@ -51,7 +52,43 @@ namespace Sample.ChartNet.UI.Web.Controllers
         {
             var tarefas = _tarefaAppService.Obter();
 
+            var retorno = new GoogleChartDTO();
+            retorno.cols = new List<GoogleChartColunaDTO>();
+            retorno.rows = new List<GoogleChartLinhaDTO>();
+
+            retorno.cols.Add(new GoogleChartColunaDTO() { id = "", label = "Nome", pattern = "", type = "string" });
+            retorno.cols.Add(new GoogleChartColunaDTO() { id = "", label = "Depositos", pattern = "", type = "number" });
+            retorno.cols.Add(new GoogleChartColunaDTO() { id = "", label = "Codigo", pattern = "", type = "string" });
+
+            foreach (TarefaDTO item in tarefas)
+            {
+                var linhaC = new List<GoogleChartLinhaCDTO>();
+
+                linhaC.Add(new GoogleChartLinhaCDTO() { v = item.Usuario.Login });
+                linhaC.Add(new GoogleChartLinhaCDTO() { v = item.Id });
+                linhaC.Add(new GoogleChartLinhaCDTO() { v = item.IdUsuario });
+
+                retorno.rows.Add(new GoogleChartLinhaDTO() { c = linhaC });
+            }
+
             return Json(tarefas);
+        }
+
+        public ActionResult getGrafico()
+        {
+           // var myChart = new System.Web.Helpers.Chart(width: 800, height: 400)
+           //.AddTitle("Rank de Depósitos em 2010")
+           //.AddSeries(
+           //    name: "RankDepositos",
+           //    chartType: "Doughnut",
+           //    axisLabel: "PERCENT{P1}",
+           //    markerStep: 1,
+           //    legend: "Depósitos por Titulares",
+           //    xValue: new[] { "QUALCOMM INCORPORATED (US)", "MICROSOFT CORPORATION (US)", "NOVARTIS AG (CH)", "3M INNOVATIVE PROPERTIES COMPANY (US)", "JOHNSON & JOHNSON (US)", "BASF AKTIENGESELLSCHAFT (DE)", "XEROX CORPORATION (US)", "THE PROCTER & GAMBLE COMPANY (US)", "THE GOODYEAR TIRE & RUBBER COMPANY (US)", "THOMSON LICENSING (FR)" },
+           //    yValues: new[] { 266, 265, 187, 160, 152, 80, 85, 50, 30, 20 })
+           //.Write();
+
+            return null;
         }
 
         #endregion
@@ -61,6 +98,14 @@ namespace Sample.ChartNet.UI.Web.Controllers
 
         public ActionResult Index()
         {
+            //System.Web.UI.DataVisualization.Charting.Chart chart1 = new System.Web.UI.DataVisualization.Charting.Chart();
+            //chart1.Width = 412;
+            //chart1.Height = 296;
+            //chart1.RenderType = System.Web.UI.DataVisualization.Charting.RenderType.ImageTag;
+            //chart1.ImageLocation = "TempImages\\ChartPic" + Guid.NewGuid() + ".png";
+
+            //ViewBag.Message = "Chart Helper";
+
             return View();
         }
 
