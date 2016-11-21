@@ -30,7 +30,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.5.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.5.0\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -51,6 +64,21 @@
     <None Include="App.Debug.config" />
     <None Include="App.Release.config" />
     <None Include="App.Work.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sample.ChartNet.Dominio\Sample.ChartNet.Dominio.csproj">
+      <Project>{f25de1ae-52e1-4a0d-9a27-f0117c39a897}</Project>
+      <Name>Sample.ChartNet.Dominio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sample.ChartNet.Infraestrutura.Comuns\Sample.ChartNet.Infraestrutura.Comuns.csproj">
+      <Project>{18910d6b-c950-4e70-b46d-b25ea49b7678}</Project>
+      <Name>Sample.ChartNet.Infraestrutura.Comuns</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sample.ChartNet.Infraestrutura.Persistencia\Sample.ChartNet.Infraestrutura.Persistencia.csproj">
+      <Project>{e5c55545-3704-4aa1-99b6-c7fd5047681d}</Project>
+      <Name>Sample.ChartNet.Infraestrutura.Persistencia</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
