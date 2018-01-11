@@ -7,9 +7,6 @@
 function HomeIndexViewModel() {
 
     var self = this;
-
-    alert("bind");
-
     var graficoTotais = new Graficos();
 
     graficoTotais.URL = '/Home/ObterRank';
